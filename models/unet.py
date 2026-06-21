@@ -148,4 +148,4 @@ if __name__ == "__main__":
     print(f"Output shape: {output.shape}")
     print(f"Total parameters: {count_parameters(model):,}")
     print(f"Output min/max: {output.min():.3f} / {output.max():.3f}")
-    print("✅ UNet model working correctly!")
+    print("UNet model working correctly!")

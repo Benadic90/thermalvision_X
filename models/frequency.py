@@ -122,4 +122,4 @@ if __name__ == "__main__":
     print(f"High freq shape:    {result['high_freq'].shape}")
     print(f"Low freq shape:     {result['low_freq'].shape}")
     print(f"Masked input shape: {result['masked_input'].shape}")
-    print("✅ Frequency decoupling module working correctly!")
+    print("Frequency decoupling module working correctly!")
