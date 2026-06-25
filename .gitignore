@@ -1,0 +1,19 @@
+# Python environments
+.venv/
+venv/
+__pycache__/
+*.py[cod]
+*.pyd
+*.so
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# Local workspace artifacts
+.vscode/
+.tmp/
+
+# Large local dataset assets
+datasets/processed/
+datasets/raws/
+datasets/samples/
