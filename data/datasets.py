@@ -17,122 +17,91 @@ from pathlib import Path
 # SETTINGS
 # ──────────────────────────────────────────
 PROCESSED_FOLDER = "datasets/processed"   # folder with preprocessed images
-IMAGE_SIZE       = (224, 224)             # must match preprocessing.py
+IMAGE_SIZE       = (256, 256)             # must match UNet input (256x256)
 BATCH_SIZE       = 8                      # how many images per batch
 # ──────────────────────────────────────────
 
 
-class ThermalDataset(Dataset):
+class VisibleImageDataset(Dataset):
     """
-    Custom PyTorch Dataset for Thermal/Infrared Images.
-    Loads all images from the processed folder.
+    Custom PyTorch Dataset for Visible (RGB) Images.
+    Used for zero-shot training of the UNet.
     """
 
-    def __init__(self, folder=PROCESSED_FOLDER):
+    def __init__(self, root_dir=PROCESSED_FOLDER, img_size=IMAGE_SIZE, augment=False):
         """
-        Constructor - runs when you create ThermalDataset()
+        Constructor - runs when you create VisibleImageDataset()
         Collects all image file paths from the folder.
         """
-        self.folder     = Path(folder)
+        self.folder     = Path(root_dir)
+        self.img_size   = (img_size, img_size) if isinstance(img_size, int) else img_size
+        self.augment    = augment
         self.extensions = [".jpg", ".jpeg", ".png", ".bmp", ".tiff", ".tif"]
 
         # Collect all valid image paths
         self.image_paths = []
-        for filepath in self.folder.rglob("*"):
-            if filepath.suffix.lower() in self.extensions:
-                self.image_paths.append(filepath)
+        if self.folder.exists():
+            for filepath in self.folder.rglob("*"):
+                if filepath.suffix.lower() in self.extensions:
+                    self.image_paths.append(filepath)
 
-        print(f"[Dataset] Found {len(self.image_paths)} images in '{folder}'")
+        print(f"[Dataset] Found {len(self.image_paths)} images in '{root_dir}'")
 
 
     def __len__(self):
-        """
-        Returns total number of images in the dataset.
-        PyTorch needs this to know dataset size.
-        """
+        """Returns total number of images in the dataset."""
         return len(self.image_paths)
 
 
     def __getitem__(self, index):
         """
-        Returns one image at a given index as a PyTorch tensor.
-        PyTorch calls this automatically during training.
-
-        Steps:
-        1. Read image from disk
-        2. Resize to IMAGE_SIZE
-        3. Normalize to 0.0 - 1.0
-        4. Convert to PyTorch tensor (C, H, W) format
+        Returns one image at a given index as a PyTorch tensor inside a dictionary.
+        Dictionary format is required by train.py.
         """
-
-        # ── Step 1: Read image ──
         filepath = self.image_paths[index]
         img = cv2.imread(str(filepath))
 
         if img is None:
-            # If image fails to load, return a blank tensor
             print(f"[Warning] Could not load: {filepath.name}")
-            return torch.zeros(3, IMAGE_SIZE[0], IMAGE_SIZE[1])
+            tensor = torch.zeros(3, self.img_size[0], self.img_size[1])
+            return {'image': tensor}
 
-        # ── Step 2: Resize ──
-        img = cv2.resize(img, IMAGE_SIZE)
+        # BGR to RGB (OpenCV loads as BGR)
+        img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
 
-        # ── Step 3: Normalize (0-255 → 0.0-1.0) ──
-        img = img / 255.0
+        # Resize to model requirement
+        img = cv2.resize(img, self.img_size)
 
-        # ── Step 4: Convert to tensor ──
-        # OpenCV loads as (H, W, C) → PyTorch needs (C, H, W)
+        # Normalize to -1.0 to 1.0 (Standard for GANs/UNets)
+        img = (img / 127.5) - 1.0
+
+        # Convert to PyTorch tensor (C, H, W) format
         img = np.transpose(img, (2, 0, 1))
         tensor = torch.tensor(img, dtype=torch.float32)
 
-        return tensor
+        return {'image': tensor}
 
 
 def get_dataloader(folder=PROCESSED_FOLDER, batch_size=BATCH_SIZE, shuffle=True):
-    """
-    Creates and returns a DataLoader from the ThermalDataset.
-    DataLoader batches images together for training.
-    """
-    dataset    = ThermalDataset(folder=folder)
+    dataset    = VisibleImageDataset(root_dir=folder)
     dataloader = DataLoader(dataset, batch_size=batch_size, shuffle=shuffle)
     return dataloader
 
 
-# ──────────────────────────────────────────
-# TEST - Run this file directly to test
-# ──────────────────────────────────────────
 if __name__ == "__main__":
-
     print("=" * 50)
-    print("  THERMAL DATASET LOADER TEST")
+    print("  VISIBLE IMAGE DATASET LOADER TEST")
     print("=" * 50)
 
-    # Create dataset
-    dataset = ThermalDataset()
-
-    # Show basic info
+    dataset = VisibleImageDataset()
     print(f"Total images     : {len(dataset)}")
 
-    # Load one image and show its shape
     if len(dataset) > 0:
-        sample = dataset[0]
-        print(f"Sample shape     : {sample.shape}")   # should be (3, 224, 224)
-        print(f"Sample min value : {sample.min():.4f}")  # should be ~0.0
-        print(f"Sample max value : {sample.max():.4f}")  # should be ~1.0
+        sample = dataset[0]['image']
+        print(f"Sample shape     : {sample.shape}")
+        print(f"Sample min value : {sample.min():.4f}")
+        print(f"Sample max value : {sample.max():.4f}")
 
-    print()
-
-    # Create dataloader and load one batch
-    print("Testing DataLoader (batch loading)...")
-    loader = get_dataloader(batch_size=BATCH_SIZE)
-
-    for batch in loader:
-        print(f"Batch shape      : {batch.shape}")  # (8, 3, 224, 224)
-        print(f"Batch size       : {batch.shape[0]} images")
-        print(f"Image dimensions : {batch.shape[2]}x{batch.shape[3]}")
-        break   # only test first batch
-
-    print()
-    print("=" * 50)
+    print("\n=" * 50)
     print("  DATASET LOADER WORKING CORRECTLY!")
     print("=" * 50)

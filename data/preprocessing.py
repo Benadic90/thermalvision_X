@@ -17,7 +17,7 @@ from pathlib import Path
 # ──────────────────────────────────────────
 INPUT_FOLDER  = "datasets/raws/roboflow_thermal"           # where your downloaded images are
 OUTPUT_FOLDER = "datasets/processed"     # where to save processed images
-TARGET_SIZE   = (224, 224)               # resize all images to this size
+TARGET_SIZE   = (256, 256)               # resize all images to this size (matches UNet)
 # ──────────────────────────────────────────
 
 
