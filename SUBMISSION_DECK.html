@@ -1,0 +1,694 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>THERMAVISION-X | Idea Submission Deck</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;900&display=swap');
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Inter', sans-serif;
+    color: #e0e0e0;
+    background: #0a0a1a;
+  }
+
+  .slide {
+    width: 100%;
+    min-height: 100vh;
+    padding: 60px 80px;
+    page-break-after: always;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+  }
+
+  /* Slide 1: Title */
+  .slide-title {
+    background: linear-gradient(135deg, #0a0a2e 0%, #1a0a3e 40%, #0a1a3e 100%);
+    text-align: center;
+    align-items: center;
+  }
+  .slide-title::before {
+    content: '';
+    position: absolute;
+    top: -200px; right: -200px;
+    width: 600px; height: 600px;
+    background: radial-gradient(circle, rgba(99, 102, 241, 0.15) 0%, transparent 70%);
+    border-radius: 50%;
+  }
+  .slide-title::after {
+    content: '';
+    position: absolute;
+    bottom: -150px; left: -150px;
+    width: 500px; height: 500px;
+    background: radial-gradient(circle, rgba(236, 72, 153, 0.1) 0%, transparent 70%);
+    border-radius: 50%;
+  }
+  .slide-title h1 {
+    font-size: 72px;
+    font-weight: 900;
+    background: linear-gradient(135deg, #818cf8, #c084fc, #f472b6);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    letter-spacing: -2px;
+    margin-bottom: 16px;
+    position: relative;
+    z-index: 1;
+  }
+  .slide-title .tagline {
+    font-size: 22px;
+    font-weight: 300;
+    color: #a5b4fc;
+    letter-spacing: 2px;
+    margin-bottom: 40px;
+    position: relative; z-index: 1;
+  }
+  .slide-title .meta {
+    font-size: 14px;
+    color: #6b7280;
+    margin-top: 30px;
+    position: relative; z-index: 1;
+  }
+  .slide-title .team {
+    font-size: 16px;
+    color: #9ca3af;
+    margin-top: 12px;
+    position: relative; z-index: 1;
+  }
+  .badge {
+    display: inline-block;
+    background: rgba(99, 102, 241, 0.15);
+    border: 1px solid rgba(99, 102, 241, 0.3);
+    color: #a5b4fc;
+    padding: 6px 18px;
+    border-radius: 20px;
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 1px;
+    margin: 4px;
+    position: relative; z-index: 1;
+  }
+
+  /* General slide styles */
+  .slide-content {
+    background: linear-gradient(160deg, #0d0d2b 0%, #111133 100%);
+  }
+  .slide-content h2 {
+    font-size: 42px;
+    font-weight: 800;
+    margin-bottom: 30px;
+    background: linear-gradient(90deg, #818cf8, #c084fc);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  .slide-content h3 {
+    font-size: 24px;
+    font-weight: 700;
+    color: #c084fc;
+    margin-bottom: 12px;
+    margin-top: 20px;
+  }
+  .slide-content p, .slide-content li {
+    font-size: 18px;
+    line-height: 1.7;
+    color: #d1d5db;
+  }
+  .slide-content ul { list-style: none; padding: 0; }
+  .slide-content ul li {
+    padding: 8px 0 8px 30px;
+    position: relative;
+  }
+  .slide-content ul li::before {
+    content: '>';
+    position: absolute;
+    left: 0;
+    color: #818cf8;
+    font-weight: 700;
+    font-size: 20px;
+  }
+
+  /* Stats row */
+  .stats-row {
+    display: flex;
+    gap: 20px;
+    margin: 30px 0;
+    flex-wrap: wrap;
+  }
+  .stat-card {
+    flex: 1;
+    min-width: 180px;
+    background: rgba(99, 102, 241, 0.08);
+    border: 1px solid rgba(99, 102, 241, 0.2);
+    border-radius: 16px;
+    padding: 24px;
+    text-align: center;
+  }
+  .stat-card .number {
+    font-size: 36px;
+    font-weight: 900;
+    color: #818cf8;
+  }
+  .stat-card .label {
+    font-size: 13px;
+    color: #9ca3af;
+    margin-top: 6px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+
+  /* Innovation cards */
+  .innovation-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    margin-top: 20px;
+  }
+  .innovation-card {
+    background: rgba(99, 102, 241, 0.06);
+    border: 1px solid rgba(99, 102, 241, 0.15);
+    border-radius: 16px;
+    padding: 24px;
+  }
+  .innovation-card .icon {
+    font-size: 32px;
+    margin-bottom: 10px;
+  }
+  .innovation-card h4 {
+    font-size: 18px;
+    font-weight: 700;
+    color: #a5b4fc;
+    margin-bottom: 8px;
+  }
+  .innovation-card p {
+    font-size: 14px;
+    color: #9ca3af;
+    line-height: 1.5;
+  }
+
+  /* Comparison table */
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+  }
+  th {
+    background: rgba(99, 102, 241, 0.15);
+    color: #a5b4fc;
+    padding: 12px 16px;
+    text-align: left;
+    font-size: 14px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+  td {
+    padding: 12px 16px;
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+    font-size: 15px;
+    color: #d1d5db;
+  }
+  tr:last-child {
+    background: rgba(99, 102, 241, 0.1);
+    border: 1px solid rgba(99, 102, 241, 0.3);
+  }
+  tr:last-child td { color: #818cf8; font-weight: 700; }
+
+  /* Pipeline diagram */
+  .pipeline {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0;
+    margin: 30px 0;
+    flex-wrap: wrap;
+  }
+  .pipeline-step {
+    background: rgba(99, 102, 241, 0.1);
+    border: 1px solid rgba(99, 102, 241, 0.25);
+    border-radius: 12px;
+    padding: 16px 20px;
+    text-align: center;
+    min-width: 140px;
+  }
+  .pipeline-step .step-title {
+    font-size: 14px;
+    font-weight: 700;
+    color: #a5b4fc;
+  }
+  .pipeline-step .step-desc {
+    font-size: 11px;
+    color: #9ca3af;
+    margin-top: 4px;
+  }
+  .pipeline-arrow {
+    font-size: 24px;
+    color: #4f46e5;
+    padding: 0 8px;
+  }
+
+  /* Use case cards */
+  .usecase-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 16px;
+    margin-top: 20px;
+  }
+  .usecase-card {
+    background: rgba(192, 132, 252, 0.06);
+    border: 1px solid rgba(192, 132, 252, 0.15);
+    border-radius: 14px;
+    padding: 20px;
+  }
+  .usecase-card h4 {
+    color: #c084fc;
+    font-size: 16px;
+    margin-bottom: 8px;
+  }
+  .usecase-card p {
+    font-size: 13px;
+    color: #9ca3af;
+    line-height: 1.5;
+  }
+
+  /* Team grid */
+  .team-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin-top: 20px;
+  }
+  .team-card {
+    background: rgba(99, 102, 241, 0.06);
+    border: 1px solid rgba(99, 102, 241, 0.15);
+    border-radius: 14px;
+    padding: 20px;
+  }
+  .team-card h4 {
+    font-size: 18px;
+    color: #a5b4fc;
+    margin-bottom: 4px;
+  }
+  .team-card .role {
+    font-size: 13px;
+    color: #c084fc;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 8px;
+  }
+  .team-card p {
+    font-size: 14px;
+    color: #9ca3af;
+    line-height: 1.5;
+  }
+
+  .highlight {
+    color: #818cf8;
+    font-weight: 700;
+  }
+  .highlight-pink {
+    color: #f472b6;
+    font-weight: 700;
+  }
+
+  .slide-number {
+    position: absolute;
+    bottom: 20px;
+    right: 40px;
+    font-size: 12px;
+    color: #4b5563;
+  }
+
+  .formula-box {
+    background: rgba(99, 102, 241, 0.08);
+    border: 1px solid rgba(99, 102, 241, 0.2);
+    border-radius: 12px;
+    padding: 20px 30px;
+    margin: 20px 0;
+    text-align: center;
+    font-family: 'Courier New', monospace;
+    font-size: 20px;
+    color: #a5b4fc;
+    letter-spacing: 1px;
+  }
+</style>
+</head>
+<body>
+
+<!-- SLIDE 1: TITLE -->
+<div class="slide slide-title">
+  <div class="badge">BHARATIYA ANTARIKSH HACKATHON 2026</div>
+  <div class="badge">CHALLENGE #10 - IR COLORIZATION</div>
+  <h1>THERMAVISION-X</h1>
+  <div class="tagline">Making Invisible Heat Visible - Accurately, Instantly, Everywhere</div>
+  <p class="tagline" style="font-size: 16px; color: #9ca3af;">Physics-Guided Zero-Shot Infrared Colorization for ISRO Satellite Intelligence</p>
+  <div class="team">
+    <strong>Team Vision-X2026</strong><br/>
+    Benadic (ML Lead) | Madhav (Data & Physics) | Adity (Full-Stack & Presenter) | Nisha (Domain Expert)
+  </div>
+  <div class="meta">
+    GitHub: github.com/Benadic90/thermalvision_X
+  </div>
+  <div class="slide-number">1 / 10</div>
+</div>
+
+<!-- SLIDE 2: THE PROBLEM -->
+<div class="slide slide-content">
+  <h2>The Problem</h2>
+  <p style="font-size: 22px; color: #f472b6; font-weight: 600; margin-bottom: 20px;">
+    ISRO captures terabytes of life-saving thermal data every day - but it's ALL grayscale.
+  </p>
+  <p>
+    A farmer can't interpret 10-micron radiance. A disaster responder can't distinguish floodwater 
+    from dry land in a gray image. Scientists spend hours manually color-mapping each image.
+  </p>
+
+  <div class="stats-row">
+    <div class="stat-card">
+      <div class="number">1,507</div>
+      <div class="label">Disaster Deaths in India (2024)</div>
+    </div>
+    <div class="stat-card">
+      <div class="number">49.8M</div>
+      <div class="label">Hectares Flood-Prone</div>
+    </div>
+    <div class="stat-card">
+      <div class="number">733</div>
+      <div class="label">Heat Wave Deaths</div>
+    </div>
+    <div class="stat-card">
+      <div class="number">57m</div>
+      <div class="label">TRISHNA Resolution (No System Exists)</div>
+    </div>
+  </div>
+
+  <p>With ISRO's <span class="highlight">TRISHNA mission launching in 2026</span>, there will be an unprecedented flood of 4-band thermal IR data at 57-meter resolution with <span class="highlight-pink">NO existing system</span> to make it visually interpretable.</p>
+  <div class="slide-number">2 / 10</div>
+</div>
+
+<!-- SLIDE 3: OUR SOLUTION -->
+<div class="slide slide-content">
+  <h2>Our Solution</h2>
+  <p style="font-size: 20px; margin-bottom: 20px;">
+    <span class="highlight">THERMAVISION-X</span> is the world's first physics-guided, zero-shot infrared 
+    colorization system designed specifically for ISRO's satellite missions.
+  </p>
+
+  <div class="pipeline">
+    <div class="pipeline-step">
+      <div class="step-title">Grayscale IR Image</div>
+      <div class="step-desc">INSAT-3D / TRISHNA</div>
+    </div>
+    <div class="pipeline-arrow">--></div>
+    <div class="pipeline-step">
+      <div class="step-title">FFT Decoupling</div>
+      <div class="step-desc">Separate Structure from Color</div>
+    </div>
+    <div class="pipeline-arrow">--></div>
+    <div class="pipeline-step">
+      <div class="step-title">UNet Generator</div>
+      <div class="step-desc">Predict Color (Zero-Shot)</div>
+    </div>
+    <div class="pipeline-arrow">--></div>
+    <div class="pipeline-step">
+      <div class="step-title">Physics Layer</div>
+      <div class="step-desc">Planck's Law Constraint</div>
+    </div>
+    <div class="pipeline-arrow">--></div>
+    <div class="pipeline-step">
+      <div class="step-title">Color Output + Confidence Map</div>
+      <div class="step-desc">Physically Accurate</div>
+    </div>
+  </div>
+
+  <h3>The Zero-Shot Breakthrough</h3>
+  <ul>
+    <li><span class="highlight">Train ONLY on visible images</span> (freely available in millions)</li>
+    <li>At inference, colorize <span class="highlight">ANY infrared image</span> it has NEVER seen</li>
+    <li>No paired IR-RGB data needed - a requirement that blocks every competitor</li>
+  </ul>
+  <div class="slide-number">3 / 10</div>
+</div>
+
+<!-- SLIDE 4: 5 INNOVATIONS -->
+<div class="slide slide-content">
+  <h2>5 Core Innovations</h2>
+  <div class="innovation-grid">
+    <div class="innovation-card">
+      <h4>1. Zero-Shot via FFT</h4>
+      <p>2D Fast Fourier Transform separates structure (band-invariant) from color (band-specific). Train on visible, infer on IR.</p>
+    </div>
+    <div class="innovation-card">
+      <h4>2. Physics-Guided Loss</h4>
+      <p>Planck's Law and Stefan-Boltzmann Law embedded as differentiable constraints. Colors are thermodynamically accurate.</p>
+    </div>
+    <div class="innovation-card">
+      <h4>3. Lightweight UNet (~5M params)</h4>
+      <p>Runs at 15-30 FPS on edge devices. No cloud GPU needed. Deployable on UAVs over disaster zones.</p>
+    </div>
+    <div class="innovation-card">
+      <h4>4. Uncertainty Maps (MC Dropout)</h4>
+      <p>Per-pixel confidence scores. Tells operators "95% sure here, 30% there." Critical for life-saving decisions.</p>
+    </div>
+  </div>
+  <div style="margin-top: 20px;">
+    <div class="innovation-card" style="text-align: center;">
+      <h4>5. ISRO-First Design</h4>
+      <p>Native support for ISRO HDF5 formats (INSAT-3D, Oceansat-3, TRISHNA). Built for Indian satellite missions from Day 1.</p>
+    </div>
+  </div>
+  <div class="slide-number">4 / 10</div>
+</div>
+
+<!-- SLIDE 5: TECHNICAL ARCHITECTURE -->
+<div class="slide slide-content">
+  <h2>Technical Architecture</h2>
+
+  <h3>Frequency Domain Decoupling (The Core Insight)</h3>
+  <p>Images have two components in frequency space:</p>
+  <ul>
+    <li><span class="highlight">High Frequency</span> = Edges, textures, structure --> SAME in visible AND infrared (band-invariant)</li>
+    <li><span class="highlight-pink">Low Frequency</span> = Color, luminance --> EXISTS only in visible (band-specific)</li>
+  </ul>
+  <p style="margin-top: 12px;">We mask the low frequencies during training, forcing the UNet to reconstruct color from structure alone. At inference, IR images provide structure --> the model fills in physically accurate color.</p>
+
+  <h3>Physics-Informed Loss Function</h3>
+  <div class="formula-box">
+    L_total = L_recon + L_focal_freq + L_planck + L_stefan + L_cosine
+  </div>
+  <p>Where <span class="highlight">L_planck</span> penalizes outputs that violate Planck's blackbody radiation law, and <span class="highlight">L_stefan</span> enforces Stefan-Boltzmann total emissive power constraints.</p>
+
+  <h3>Model Specifications</h3>
+  <div class="stats-row">
+    <div class="stat-card">
+      <div class="number">~5M</div>
+      <div class="label">Parameters</div>
+    </div>
+    <div class="stat-card">
+      <div class="number">15+</div>
+      <div class="label">FPS on Edge</div>
+    </div>
+    <div class="stat-card">
+      <div class="number">256x256</div>
+      <div class="label">Input Resolution</div>
+    </div>
+    <div class="stat-card">
+      <div class="number">3-ch HSV</div>
+      <div class="label">Output Space</div>
+    </div>
+  </div>
+  <div class="slide-number">5 / 10</div>
+</div>
+
+<!-- SLIDE 6: COMPETITIVE ANALYSIS -->
+<div class="slide slide-content">
+  <h2>Competitive Analysis</h2>
+  <p style="margin-bottom: 20px;">No existing solution combines all five of our innovations.</p>
+  <table>
+    <tr>
+      <th>Method</th>
+      <th>Training Data</th>
+      <th>Physics</th>
+      <th>Speed</th>
+      <th>Uncertainty</th>
+      <th>Edge Deploy</th>
+    </tr>
+    <tr>
+      <td>CycleGAN</td>
+      <td>Unpaired IR-RGB</td>
+      <td>No</td>
+      <td>Slow</td>
+      <td>No</td>
+      <td>No</td>
+    </tr>
+    <tr>
+      <td>CCLGAN</td>
+      <td>Unpaired IR-RGB</td>
+      <td>No</td>
+      <td>Medium</td>
+      <td>No</td>
+      <td>No</td>
+    </tr>
+    <tr>
+      <td>Pix2Pix</td>
+      <td>Paired IR-RGB</td>
+      <td>No</td>
+      <td>Medium</td>
+      <td>No</td>
+      <td>No</td>
+    </tr>
+    <tr>
+      <td>DDNM (Diffusion)</td>
+      <td>Zero-shot</td>
+      <td>No</td>
+      <td>Very Slow</td>
+      <td>No</td>
+      <td>No</td>
+    </tr>
+    <tr>
+      <td>Palette</td>
+      <td>Paired</td>
+      <td>No</td>
+      <td>Slow</td>
+      <td>No</td>
+      <td>No</td>
+    </tr>
+    <tr>
+      <td>THERMAVISION-X (Ours)</td>
+      <td>Visible ONLY (Zero-Shot)</td>
+      <td>YES</td>
+      <td>15-30 FPS</td>
+      <td>YES</td>
+      <td>YES</td>
+    </tr>
+  </table>
+  <div class="slide-number">6 / 10</div>
+</div>
+
+<!-- SLIDE 7: USE CASES -->
+<div class="slide slide-content">
+  <h2>Impact & Use Cases</h2>
+  <div class="usecase-grid">
+    <div class="usecase-card">
+      <h4>Disaster Response</h4>
+      <p>Colorize INSAT-3D TIR flood maps for NDRF rescue teams. Faster visual interpretation saves lives during cyclones, floods, and earthquakes.</p>
+    </div>
+    <div class="usecase-card">
+      <h4>Agriculture (FASAL)</h4>
+      <p>Convert grayscale thermal crop stress maps into color-coded drought/wetness advisories that farmers can instantly understand.</p>
+    </div>
+    <div class="usecase-card">
+      <h4>Urban Planning</h4>
+      <p>Visualize city heat islands from satellite TIR data. Intuitive color maps for municipal climate action planning.</p>
+    </div>
+    <div class="usecase-card">
+      <h4>Fisheries (PFZ)</h4>
+      <p>Color-code Oceansat-3 Sea Surface Temperature data for Potential Fishing Zone advisories to coastal communities.</p>
+    </div>
+    <div class="usecase-card">
+      <h4>Medical Thermography</h4>
+      <p>Enhance breast cancer screening, diabetic foot assessment, and inflammation detection using colorized thermal scans.</p>
+    </div>
+    <div class="usecase-card">
+      <h4>Defense & Border Security</h4>
+      <p>Colorize nighttime IR surveillance feeds for enhanced object recognition at borders and high-altitude posts.</p>
+    </div>
+  </div>
+  <div class="slide-number">7 / 10</div>
+</div>
+
+<!-- SLIDE 8: TECHNOLOGY STACK -->
+<div class="slide slide-content">
+  <h2>Technology Stack</h2>
+  <div class="innovation-grid">
+    <div class="innovation-card">
+      <h4>ML Framework</h4>
+      <p>PyTorch 2.0+ with CUDA acceleration. Custom UNet encoder-decoder with skip connections.</p>
+    </div>
+    <div class="innovation-card">
+      <h4>Signal Processing</h4>
+      <p>2D FFT (torch.fft) for frequency domain decoupling. Circular high/low-pass masking.</p>
+    </div>
+    <div class="innovation-card">
+      <h4>Data Pipeline</h4>
+      <p>h5py (ISRO HDF5), rasterio (GeoTIFF), torchvision transforms, scikit-image preprocessing.</p>
+    </div>
+    <div class="innovation-card">
+      <h4>Deployment</h4>
+      <p>ONNX Runtime for edge inference. Streamlit for interactive web demo. GitHub for version control.</p>
+    </div>
+  </div>
+  <div style="margin-top: 30px;">
+    <h3>Hardware</h3>
+    <p>Training: NVIDIA RTX 2050 (4GB VRAM) | Target Edge: Jetson Nano / Laptop CPU</p>
+    <h3 style="margin-top: 20px;">GitHub Repository</h3>
+    <p><span class="highlight">github.com/Benadic90/thermalvision_X</span> - Full source code, documentation, and research papers.</p>
+  </div>
+  <div class="slide-number">8 / 10</div>
+</div>
+
+<!-- SLIDE 9: TEAM -->
+<div class="slide slide-content">
+  <h2>Our Team</h2>
+  <p style="margin-bottom: 10px;">3 IT Students + 1 Medical Professional = Unbeatable Combination</p>
+  <div class="team-grid">
+    <div class="team-card">
+      <h4>Benadic</h4>
+      <div class="role">IT 1 - ML Lead</div>
+      <p>Designed the UNet architecture, FFT frequency decoupling module, and the overall zero-shot training pipeline. Led deep research into 400+ SOTA papers.</p>
+    </div>
+    <div class="team-card">
+      <h4>Madhav</h4>
+      <div class="role">IT 2 - Data & Physics</div>
+      <p>Built data pipelines for ISRO satellite formats (HDF5, GeoTIFF). Implemented Planck's Law and Stefan-Boltzmann physics constraints in the loss function.</p>
+    </div>
+    <div class="team-card">
+      <h4>Adity</h4>
+      <div class="role">IT 3 - Full-Stack & DevOps</div>
+      <p>Developed the Streamlit interactive demo, ONNX edge deployment pipeline, and managed the GitHub repository and CI/CD.</p>
+    </div>
+    <div class="team-card">
+      <h4>Nisha</h4>
+      <div class="role">BMLT - Domain Expert & Presenter</div>
+      <p>Brought medical thermal imaging expertise (breast cancer screening, inflammation). Authored use cases and delivers the pitch to judges.</p>
+    </div>
+  </div>
+  <div class="slide-number">9 / 10</div>
+</div>
+
+<!-- SLIDE 10: CLOSING -->
+<div class="slide slide-title" style="background: linear-gradient(135deg, #0a0a2e 0%, #1a0a3e 40%, #0a1a3e 100%);">
+  <h1 style="font-size: 56px;">THERMAVISION-X</h1>
+  <div class="tagline">Making Invisible Heat Visible</div>
+  <div class="formula-box" style="max-width: 700px; margin: 30px auto;">
+    "Every existing solution trains on IR-RGB pairs. We said: what if we NEVER show the AI any infrared during training? Instead, we teach it physics - and it generalizes to any IR band it's never seen. That's zero-shot. That's THERMAVISION-X."
+  </div>
+  <div class="stats-row" style="justify-content: center; max-width: 600px; margin: 20px auto;">
+    <div class="stat-card">
+      <div class="number">0</div>
+      <div class="label">IR Images Needed for Training</div>
+    </div>
+    <div class="stat-card">
+      <div class="number">15+</div>
+      <div class="label">FPS on Edge Devices</div>
+    </div>
+    <div class="stat-card">
+      <div class="number">100%</div>
+      <div class="label">Physics Compliant</div>
+    </div>
+  </div>
+  <div class="team" style="margin-top: 30px;">
+    <strong>Team Vision-X2026</strong><br/>
+    Benadic | Madhav | Adity | Nisha<br/><br/>
+    GitHub: github.com/Benadic90/thermalvision_X<br/>
+    Bharatiya Antariksh Hackathon 2026 | ISRO
+  </div>
+  <div class="slide-number">10 / 10</div>
+</div>
+
+</body>
+</html>

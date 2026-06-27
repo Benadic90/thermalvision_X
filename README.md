@@ -11,7 +11,7 @@
 <br/>
 
 > **Tagline**: *Making Invisible Heat Visible — Accurately, Instantly, Everywhere.*  
-> **Team**: Benadic (ML Lead), Madhav (Data & Physics), Adity (Full-Stack), Nisha (Domain Expert)
+> **Team**: Benadic (ML Lead), Madhav (Data & Physics), Adity (Full-Stack & Presenter), Nisha (Domain Expert)
 
 ---
 
